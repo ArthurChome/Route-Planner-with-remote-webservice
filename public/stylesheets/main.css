@@ -1,0 +1,60 @@
+#form  {
+    display: block;
+    margin: auto;
+    text-align: center;
+
+}
+
+#accordion {
+    display: block;
+    margin: auto;
+    width: 50%;
+    padding-top: 20px
+}
+
+#route-info {
+    display: block;
+    margin: auto;
+    width: 50%;
+    padding-top: 30px}
+
+#form dt, dl, dd {
+    display: inline;
+}
+
+#form dd  {
+   -webkit-margin-start: 5px
+}
+
+#form dt label {
+   padding-left: 10px
+}
+
+.error dd {
+    color: red
+}
+
+#sncb-logo {
+    padding-top: 10px;
+    padding-bottom: 50px;
+
+    margin: auto;
+    padding-left:370px;
+}
+
+
+.menu {
+    text-align: right;
+}
+
+td {
+padding-left:10px;
+}
+table {
+    font-size:70%;
+}
+
+a {
+    float:right;
+    padding-left: 5px;
+}

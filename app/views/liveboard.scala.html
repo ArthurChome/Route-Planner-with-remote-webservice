@@ -1,0 +1,49 @@
+@(routeForm: Form[model.LiveForm.Data], departures: Seq[model.ConnectionJsonModel.LiveboardDeparture], postURL: Call)(implicit request: MessagesRequestHeader)
+
+@main(title = "Liveboard") {
+    <a href="/liveboard">Liveboard </a>
+    <a href="/">Planner </a>
+
+
+    <img id="sncb-logo" src='@routes.Assets.versioned("images/liveboard.png")'>
+
+    @helper.form(postURL) {
+        <div id="form">
+            @helper.CSRF.formField
+            @helper.inputText(routeForm("station"), 'id -> "station", 'placeholder -> "Brussels", 'autofocus ->"")
+            <button> Show </button>
+        </div>
+    }
+
+    @* Flash shows updates to a page *@
+    @request.flash.data.map{ case (name, value) =>
+    <div id="route-info">Departures from: @value </div>
+    }
+
+
+    <div id="accordion">
+            <!--TODO Fill the following html template (ConnectionData) to add each connection available in the `connections` sequence-->
+            <!--ConnectionData-->
+        @departures.map { case (departure) =>
+
+        <h4> @departure.vehicle  Delay: @departure.delay mins </h4>
+        <div>
+            <table >
+                <tr>
+                    <td>Time: </td>
+                    <td> @departure.time </td>
+                    <td>Destination: </td>
+                    <td> @departure.destination </td>
+                    <td>Platform: </td>
+                    <td> @departure.platform </td>
+                </tr>
+            </table>
+        </div>
+                <!--ConnectionData-->
+
+        }
+    </div>
+
+
+
+}

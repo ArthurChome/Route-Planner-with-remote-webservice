@@ -1,0 +1,53 @@
+@(routeForm: Form[model.RouteForm.Data], connections: Seq[model.ConnectionJsonModel.Connection], postURL: Call)(implicit request: MessagesRequestHeader)
+
+@main(title = "Route Planner Home") {
+    <a id="liveboardref" href="/liveboard">Liveboard </a>
+    <a id="plannerref"  href="/">Planner </a>
+
+    <img id="sncb-logo" src='@routes.Assets.versioned("images/routeplanner.png")'>
+
+        @helper.form(postURL) {
+            <div id="form">
+                @helper.CSRF.formField
+                @helper.inputText(routeForm("From"), 'id -> "from", 'placeholder -> "Brussels", 'autofocus ->"")
+                @helper.inputText(routeForm("To"), 'id -> "to", 'placeholder -> "Antwerp")
+                <button> Plan route</button>
+            </div>
+        }
+
+    @* Flash shows updates to a page *@
+    @request.flash.data.map{ case (name, value) =>
+        <div id="route-info">@name: @value</div>
+    }
+
+
+        <div id="accordion">
+            @connections.map { case (connection) =>
+            <h4> @connection.departure.vehicle  Duration: @connection.duration  mins </h4>
+                <div>
+            <table >
+                 <tr>
+                     <td>Departure: </td>
+                     <td> @connection.departure.time </td>
+                     <td>Station: </td>
+                     <td> @connection.departure.station </td>
+                     <td>Platform: </td>
+                     <td> @connection.departure.platform </td>
+                 </tr>
+                <tr>
+                    <td>Arrival: </td>
+                    <td>@connection.arrival.time</td>
+                    <td>Station: </td>
+                    <td> <a id="liveboardref" href="/liveboardparameter/@connection.arrival.station" >@connection.arrival.station</a></td>
+                    <td>Platform: </td>
+                    <td>@connection.arrival.platform</td>
+                </tr>
+            </table>
+            </div>
+                <!--ConnectionData-->
+
+        }
+        </div>
+
+
+}
